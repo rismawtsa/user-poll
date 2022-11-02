@@ -1,52 +1,56 @@
-import React, { useState } from "react";
-const config = [
-  {
-    name: "Frontend Development",
-    id: "frontend_development",
-  },
-  {
-    name: "Software Development",
-    id: "software_development",
-  },
-  {
-    name: "Cloud Services",
-    id: "cloud_services",
-  },
-  {
-    name: "Machine Learning",
-    id: "machine_learning",
-  },
-];
-
-const handleClick = async (id) => {
-  try {
-    const response = await fetch("/api/createVote");
-    const result = await response.json();
-    console.log({ result });
-  } catch (error) {
-    console.log({ error });
-  }
-};
+import React, { Fragment, useState } from "react";
+import { QUESTIONS } from "../config";
+import styles from "../styles/home.module.scss";
 
 function HomePage() {
+  const [votes, setVotes] = useState({});
+
+  const handleClick = (questionId, optionId) => {
+    setVotes({ ...votes, [questionId]: optionId });
+    console.log({ votes });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("/api/createVote");
+      const result = await response.json();
+      console.log({ result });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
   return (
     <>
-      <h2>The New Stack</h2>
-      <div>
-        {config.map((item) => {
-          const { name, id } = item;
+      {QUESTIONS.map((item, index) => {
+        const { question, id: questionId, options } = item;
 
-          return (
-            <button
-              key={id}
-              style={{ marginRight: "1rem" }}
-              onClick={() => handleClick(id)}
-            >
-              {name}
-            </button>
-          );
-        })}
-      </div>
+        return (
+          <Fragment key={index}>
+            <h3>{question}</h3>
+            <div>
+              {options.map((opt) => {
+                const { name, id } = opt;
+                const btnStyle =
+                  votes[questionId] === id
+                    ? styles.voteButtonActive
+                    : styles.voteButton;
+                return (
+                  <button
+                    key={id}
+                    className={btnStyle}
+                    onClick={() => handleClick(questionId, id)}
+                  >
+                    {name}
+                  </button>
+                );
+              })}
+            </div>
+          </Fragment>
+        );
+      })}
+      <br />
+      <button onClick={() => handleSubmit()}>Submit</button>
     </>
   );
 }

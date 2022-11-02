@@ -11,13 +11,19 @@ export default async function handler(req, res) {
 
   await doc.getInfo();
   const sheet = doc.sheetsByIndex[0];
-  const rows = await sheet.getRows();
-  const rawData = rows[0]._rawData;
-  const headerValues = rows[0]._sheet.headerValues;
-  const rowValue = rows[0][id];
+  // const rows = await sheet.getRows();
+  // await loadHeaderRow
+  // const rawData = rows[1]._rawData;
+  // const headerValues = rows[1]._sheet.headerValues;
+  // const rowValue = rows[0][id];
 
-  rows[0][id] = Number(rowValue) + 1;
-  await rows[0].save();
+  await sheet.loadCells("A1:C11");
+  const a3 = sheet.getCellByA1("A3");
 
-  res.status(200).json({ name: "Risma" });
+  console.log({ value: a3.value });
+
+  // rows[0][id] = Number(rowValue) + 1;
+  // await rows[0].save();
+
+  res.status(200).json({ status: 200 });
 }
