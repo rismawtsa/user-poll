@@ -1,24 +1,24 @@
 const QUESTIONS = [
   {
-    id: 0,
+    id: 1,
     question: "Do you multitask while attending an online meeting?",
     options: [
       {
-        name: "oh yes, definitly",
+        name: "Oh yes, definitly",
         id: "yes",
       },
       {
-        name: "nope, never",
+        name: "Nope, never",
         id: "never",
       },
       {
-        name: "maybe",
+        name: "Maybe",
         id: "maybe",
       },
     ],
   },
   {
-    id: 1,
+    id: 2,
     question: "Did you enjoy working from home?",
     options: [
       {
@@ -32,33 +32,28 @@ const QUESTIONS = [
     ],
   },
   {
-    id: 2,
+    id: 3,
     question: "Which work model is best for you?",
     options: [
       {
-        name: "Fully Remote",
+        name: "Fully remote",
         id: "remote",
       },
       {
-        name: "Working From The Office",
+        name: "Working from the office",
         id: "in_office",
       },
       {
-        name: "Hybrid Work",
+        name: "Hybrid work",
         id: "hybrid",
       },
     ],
   },
 ];
 
-const SHEET_MAP = [
-  {
-    id: 0,
-    cells: [
-      { id: "yes", cell: "A3" },
-      { id: "never", cell: "B3" },
-      { id: "no", cell: "C3" },
-    ],
-  },
-];
+const SHEET_MAP = {
+  1: { yes: "A3", never: "B3", maybe: "C3" },
+  2: { yes: "A7", no: "B7" },
+  3: { remote: "A11", in_office: "B11", hybrid: "C11" },
+};
 export { QUESTIONS, SHEET_MAP };
