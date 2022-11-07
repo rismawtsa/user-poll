@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
+import styles from "./layout.module.scss";
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home, error }) {
   return (
     <>
       <Head>
@@ -25,6 +26,7 @@ export default function Layout({ children, home }) {
           href="/images/favicon-16x16.png"
         />
       </Head>
+      {error && <div className={styles.error}>{error}</div>}
       {children}
       <br />
       {!home && <Link href="/">Back to home</Link>}
