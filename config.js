@@ -40,12 +40,12 @@ const QUESTIONS = [
         id: "remote",
       },
       {
-        name: "Working from the office",
-        id: "in_office",
-      },
-      {
         name: "Hybrid work",
         id: "hybrid",
+      },
+      {
+        name: "Working from the office",
+        id: "in_office",
       },
     ],
   },
