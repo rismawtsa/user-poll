@@ -7,11 +7,23 @@ export default async function handler(req, res) {
   let data = {};
   for (const key of Object.keys(SHEET_MAP)) {
     let votes = {};
+    let total = 0;
+    let max = 0;
     for (const [keyVote, valVote] of Object.entries(SHEET_MAP[key])) {
-      const cell = sheet.getCellByA1(valVote);
-      votes[keyVote] = cell.value;
+      const count = sheet.getCellByA1(valVote);
+      total += count.value;
+      max = Math.max(max, count.value);
     }
-    data[key] = votes;
+
+    for (const [keyVote, valVote] of Object.entries(SHEET_MAP[key])) {
+      const count = sheet.getCellByA1(valVote);
+      votes[keyVote] = {
+        value: count.value,
+        percent: Number((count.value * 100) / total).toFixed(2),
+        isMax: count.value >= max,
+      };
+    }
+    data[key] = { total, votes };
   }
 
   res.status(200).json({ status: 200, data });

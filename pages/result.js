@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Layout from "../components/layout";
 import Skeleton from "../components/skeleton";
-import utilStyles from "../styles/utils.module.scss";
+import Card from "../components/card";
+import styles from "../styles/result.module.scss";
 const { QUESTIONS } = require("../config");
 
 function Result() {
@@ -27,26 +28,61 @@ function Result() {
 
   if (error) return <div>failed to load</div>;
 
-  const showValue = (data, questionId, optionId) => {
-    if (isLoading) return <Skeleton style={{ width: "3rem" }} />;
-    return <div>{data && data[questionId][optionId]}</div>;
+  const showValue = (questionId, option) => {
+    if (isLoading)
+      return (
+        <Skeleton style={{ marginBottom: "0.5rem" }}>
+          <div style={{ width: "83%" }}></div>
+          <div style={{ width: "15%" }}></div>
+        </Skeleton>
+      );
+
+    const vote = data ? data[questionId].votes[option.id] : {};
+    let resultBarStyle = styles.resultBar;
+    if (vote.isMax) {
+      resultBarStyle = styles.resultBarMax;
+    }
+    return (
+      <li className={styles.resultWrapper} key={option.id}>
+        <div
+          className={resultBarStyle}
+          style={{
+            width: `${vote.percent ?? 0}%`,
+          }}
+        ></div>
+        <div className={styles.resultItem}>{option.name}</div>
+        <div className={styles.resultItem}>{vote.percent ?? 0}%</div>
+      </li>
+    );
+  };
+
+  const showTotalVotes = (questionId) => {
+    if (isLoading)
+      return (
+        <Skeleton>
+          <div style={{ width: "3rem" }}></div>
+        </Skeleton>
+      );
+    return (
+      <div className={styles.total}>{data && data[questionId].total} votes</div>
+    );
   };
 
   return (
     <Layout>
-      {QUESTIONS.map(({ question, options, id }) => {
-        return (
-          <Fragment key={id}>
-            <h3>{question}</h3>
-            {options.map((opt) => (
-              <div className={utilStyles.flexRow} key={opt.id}>
-                <div>{opt.name} :</div>&nbsp;&nbsp;
-                {showValue(data, id, opt.id)}
-              </div>
-            ))}
-          </Fragment>
-        );
-      })}
+      <Card>
+        {QUESTIONS.map(({ question, options, id }) => {
+          return (
+            <Fragment key={id}>
+              <h3>{question}</h3>
+              <ul className={styles.resultWrapper}>
+                {options.map((opt) => showValue(id, opt))}
+                {showTotalVotes(id)}
+              </ul>
+            </Fragment>
+          );
+        })}
+      </Card>
     </Layout>
   );
 }
