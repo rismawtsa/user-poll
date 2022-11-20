@@ -1,10 +1,13 @@
-.skeleton {
-  animation: skeleton-loading 1s linear infinite alternate;
-}
+.skeletonWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 
-.skeletonText {
-  width: 50%;
-  height: 1rem;
+  div {
+    animation: skeleton-loading 1s linear infinite alternate;
+    height: 1.8rem;
+    border-radius: 2px;
+  }
 }
 
 @keyframes skeleton-loading {

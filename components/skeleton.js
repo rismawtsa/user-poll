@@ -1,10 +1,9 @@
 import styles from "./skeleton.module.scss";
 
-export default function Skeleton({ style }) {
+export default function Skeleton({ style, children }) {
   return (
-    <div
-      className={`${styles.skeleton} ${styles.skeletonText}`}
-      style={style}
-    ></div>
+    <div className={styles.skeletonWrapper} style={style}>
+      {children}
+    </div>
   );
 }

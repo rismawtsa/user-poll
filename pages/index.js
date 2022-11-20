@@ -51,52 +51,58 @@ function HomePage() {
     }
   };
 
+  const generateNextArrow = () => {
+    if (currentQuestion < questionLength && votes[currentQuestion]) {
+      return (
+        <button
+          className={styles.next}
+          onClick={() => handleNextClick()}
+        >{`>`}</button>
+      );
+    }
+  };
+
   const generateQuestion = () => {
     const data = QUESTIONS.find((item) => item.id === currentQuestion);
 
     return (
-      <div>
+      <>
         <h3 className={styles.question}>{data.question}</h3>
-        <div>
-          {data.options.map((opt) => {
-            const { name, id } = opt;
-            let btnStyle = styles.voteButton;
-            if (votes[data.id] === id) btnStyle = styles.voteButtonActive;
-            return (
-              <Button
-                key={id}
-                className={btnStyle}
-                onClick={() => handleClick(data.id, id)}
-              >
-                {name}
-              </Button>
-            );
-          })}
+        <div className={styles.optionContainer}>
+          <div className={styles.arrowContainer}>
+            {currentQuestion > 1 && (
+              <button
+                className={styles.prev}
+                onClick={() => handlePrevClick()}
+              >{`<`}</button>
+            )}
+          </div>
+          <div>
+            {data.options.map((opt) => {
+              const { name, id } = opt;
+              let btnStyle = styles.voteButton;
+              if (votes[data.id] === id) btnStyle = styles.voteButtonActive;
+              return (
+                <Button
+                  key={id}
+                  className={btnStyle}
+                  onClick={() => handleClick(data.id, id)}
+                >
+                  {name}
+                </Button>
+              );
+            })}
+          </div>
+          <div className={styles.arrowContainer}>{generateNextArrow()}</div>
         </div>
-      </div>
+      </>
     );
   };
 
   return (
     <Layout home error={error}>
       <Card className={styles.card}>
-        <div className={styles.arrowContainer}>
-          {currentQuestion > 1 && (
-            <button
-              className={styles.prev}
-              onClick={() => handlePrevClick()}
-            >{`<`}</button>
-          )}
-        </div>
         {generateQuestion()}
-        <div className={styles.arrowContainer}>
-          {currentQuestion < questionLength && (
-            <button
-              className={styles.next}
-              onClick={() => handleNextClick()}
-            >{`>`}</button>
-          )}
-        </div>
         <div className={styles.submitContainer}>
           {currentQuestion === questionLength && (
             <Button onClick={() => handleSubmit()} disabled={isSubmit}>

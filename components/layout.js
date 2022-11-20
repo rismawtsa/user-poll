@@ -26,10 +26,16 @@ export default function Layout({ children, home, error }) {
           href="/images/favicon-16x16.png"
         />
       </Head>
-      {!home && <Link href="/">Back</Link>}
-      <br />
-      {error && <div className={styles.error}>{error}</div>}
-      {children}
+      <main>
+        {!home && (
+          <Link className={styles.link} href="/">
+            Back
+          </Link>
+        )}
+        <br />
+        {error && <div className={styles.error}>{error}</div>}
+        {children}
+      </main>
     </>
   );
 }

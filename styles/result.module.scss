@@ -1,0 +1,36 @@
+.resultWrapper {
+  padding: 0;
+  font-size: 16px;
+  li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    position: relative;
+  }
+
+  .resultBar {
+    background: #d6d6d6;
+    border-radius: 5px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .resultBarMax {
+    @extend .resultBar;
+    background: #10a8eaf2;
+    color: #fff;
+  }
+
+  .resultItem {
+    z-index: 10;
+  }
+}
+
+.total {
+  font-size: 14px;
+  color: grey;
+}
