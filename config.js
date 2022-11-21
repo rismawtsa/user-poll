@@ -22,7 +22,7 @@ const QUESTIONS = [
     question: "Did you enjoy working from home?",
     options: [
       {
-        name: "Oh yes!",
+        name: "Yes!",
         id: "yes",
       },
       {
