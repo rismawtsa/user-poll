@@ -18,15 +18,13 @@ function Result() {
         const { data } = await respon.json();
         setData(data);
       } catch (error) {
-        setError(error);
+        setError("Oop! There is something wrong");
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, []);
-
-  if (error) return <div>failed to load</div>;
 
   const showValue = (questionId, option) => {
     if (isLoading)
@@ -38,6 +36,7 @@ function Result() {
       );
 
     const vote = data ? data[questionId].votes[option.id] : {};
+
     let resultBarStyle = styles.resultBar;
     if (vote.isMax) {
       resultBarStyle = styles.resultBarMax;
@@ -69,7 +68,7 @@ function Result() {
   };
 
   return (
-    <Layout>
+    <Layout error={error}>
       <Card>
         {QUESTIONS.map(({ question, options, id }) => {
           return (

@@ -45,7 +45,7 @@ function HomePage() {
       }
       router.push("/result");
     } catch (error) {
-      setError(error.message);
+      setError("Oop! There is something wrong");
     } finally {
       setIsSubmit(false);
     }
@@ -68,7 +68,7 @@ function HomePage() {
     return (
       <>
         <h3 className={styles.question}>{data.question}</h3>
-        <div className={styles.optionContainer}>
+        <div className={styles.optionArrowContainer}>
           <div className={styles.arrowContainer}>
             {currentQuestion > 1 && (
               <button
@@ -77,7 +77,7 @@ function HomePage() {
               >{`<`}</button>
             )}
           </div>
-          <div>
+          <div className={styles.optionContainer}>
             {data.options.map((opt) => {
               const { name, id } = opt;
               let btnStyle = styles.voteButton;

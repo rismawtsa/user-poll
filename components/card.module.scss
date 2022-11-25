@@ -1,7 +1,13 @@
 .wrapper {
+  width: 100%;
   border: solid 1px #80808030;
   border-radius: 5px;
-  padding: 1rem 1.5rem 1rem;
+  padding: 1rem 1.5rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 37%);
   position: relative;
+
+  @media (max-width: 750px) {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
 }

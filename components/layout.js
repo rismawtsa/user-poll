@@ -27,6 +27,17 @@ export default function Layout({ children, home, error }) {
         />
       </Head>
       <main>
+        <header>
+          <a
+            href="https://github.com/rismawtsa/user-poll"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Github"
+            className={styles.githubLink}
+          >
+            <img src="/images/github.png" alt="github" />
+          </a>
+        </header>
         {!home && (
           <Link className={styles.link} href="/">
             Back
